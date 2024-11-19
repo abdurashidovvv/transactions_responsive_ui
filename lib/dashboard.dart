@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:transactions/components/app_bar_action_items.dart';
 import 'package:transactions/components/sidemenu.dart';
 import 'package:transactions/config/size_config.dart';
 import 'package:transactions/style/colors.dart';
@@ -31,6 +32,10 @@ class Dashboard extends StatelessWidget {
               width: double.infinity,
               height: SizeConfig.screenHeight,
               color: AppColors.secondaryBg,
+              padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
+              child: const Column(
+                children: [AppBarActionItems()],
+              ),
             ),
           ),
         ],
