@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:transactions/components/app_bar_action_items.dart';
+import 'package:transactions/components/bar_chart_component.dart';
 import 'package:transactions/components/header.dart';
 import 'package:transactions/components/info_card.dart';
 import 'package:transactions/components/payment_detail_list.dart';
@@ -65,6 +66,39 @@ class Dashboard extends StatelessWidget {
                           ),
                         ],
                       ),
+                    ),
+                    SizedBox(height: SizeConfig.blocSizeVertical! * 4),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            PrimaryText(
+                              text: 'Balance',
+                              size: 16,
+                              fontWeight: FontWeight.w800,
+                              color: AppColors.secondary,
+                            ),
+                            PrimaryText(
+                              text: '\$1500',
+                              size: 30,
+                              fontWeight: FontWeight.w800,
+                            )
+                          ],
+                        ),
+                        PrimaryText(
+                          text: 'Past 30 DAYS',
+                          size: 16,
+                          color: AppColors.secondary,
+                        )
+                      ],
+                    ),
+                    SizedBox(height: SizeConfig.blocSizeVertical! * 3),
+                    Container(
+                      height: 180,
+                      child: BarChartComponent(),
                     )
                   ],
                 ),
