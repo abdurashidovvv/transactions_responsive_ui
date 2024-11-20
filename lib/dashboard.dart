@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:transactions/components/app_bar_action_items.dart';
 import 'package:transactions/components/bar_chart_component.dart';
 import 'package:transactions/components/header.dart';
+import 'package:transactions/components/history_table.dart';
 import 'package:transactions/components/info_card.dart';
 import 'package:transactions/components/payment_detail_list.dart';
 import 'package:transactions/components/sidemenu.dart';
@@ -34,6 +35,7 @@ class Dashboard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(
                     vertical: 30.0, horizontal: 30.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Header(),
                     SizedBox(height: SizeConfig.blocSizeVertical! * 4),
@@ -96,10 +98,28 @@ class Dashboard extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: SizeConfig.blocSizeVertical! * 3),
-                    Container(
+                    const SizedBox(
                       height: 180,
                       child: BarChartComponent(),
-                    )
+                    ),
+                    SizedBox(height: SizeConfig.blocSizeVertical! * 5),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const PrimaryText(
+                          text: 'History',
+                          size: 30,
+                          fontWeight: FontWeight.w800,
+                        ),
+                        const PrimaryText(
+                          text: 'Transaction of last 60 months',
+                          size: 16,
+                          color: AppColors.secondary,
+                        ),
+                        SizedBox(height: SizeConfig.blocSizeVertical! * 3),
+                        HistoryTable()
+                      ],
+                    ),
                   ],
                 ),
               ),
