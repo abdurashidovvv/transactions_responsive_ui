@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:transactions/config/responsive.dart';
 import 'package:transactions/style/colors.dart';
 import 'package:transactions/style/style.dart';
 
@@ -27,7 +28,7 @@ class Header extends StatelessWidget {
         ),
         const Spacer(flex: 1),
         Expanded(
-            flex: 1,
+            flex: Responsive.isDesktop(context) ? 1 : 2,
             child: TextField(
               decoration: InputDecoration(
                   filled: true,

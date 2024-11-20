@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:transactions/components/app_bar_action_items.dart';
 import 'package:transactions/components/bar_chart_component.dart';
 import 'package:transactions/components/header.dart';
@@ -7,25 +6,49 @@ import 'package:transactions/components/history_table.dart';
 import 'package:transactions/components/info_card.dart';
 import 'package:transactions/components/payment_detail_list.dart';
 import 'package:transactions/components/sidemenu.dart';
+import 'package:transactions/config/responsive.dart';
 import 'package:transactions/config/size_config.dart';
 import 'package:transactions/style/colors.dart';
 import 'package:transactions/style/style.dart';
 
 class Dashboard extends StatelessWidget {
-  const Dashboard({super.key});
+  GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+
+  Dashboard({super.key});
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      key: _drawerKey,
+      drawer: const SizedBox(
+        width: 100,
+        child: SideMenu(),
+      ),
+      appBar: !Responsive.isDesktop(context)
+          ? AppBar(
+              elevation: 0,
+              backgroundColor: AppColors.white,
+              leading: IconButton(
+                  onPressed: () {
+                    _drawerKey.currentState?.openDrawer();
+                  },
+                  icon: const Icon(
+                    Icons.menu,
+                    color: AppColors.black,
+                  )),
+              actions: [AppBarActionItems()],
+            )
+          : const PreferredSize(preferredSize: Size.zero, child: SizedBox()),
       body: SafeArea(
           child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Expanded(
-            flex: 1,
-            child: SideMenu(),
-          ),
+          if (Responsive.isDesktop(context))
+            const Expanded(
+              flex: 1,
+              child: SideMenu(),
+            ),
           Expanded(
             flex: 10,
             child: SizedBox(
@@ -117,7 +140,9 @@ class Dashboard extends StatelessWidget {
                           color: AppColors.secondary,
                         ),
                         SizedBox(height: SizeConfig.blocSizeVertical! * 3),
-                        HistoryTable()
+                        const HistoryTable(),
+                        if (!Responsive.isDesktop(context))
+                          const PaymentDetailList()
                       ],
                     ),
                   ],
@@ -125,20 +150,22 @@ class Dashboard extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            flex: 4,
-            child: Container(
-              width: double.infinity,
-              height: SizeConfig.screenHeight,
-              color: AppColors.secondaryBg,
-              child: const SingleChildScrollView(
-                padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
-                child: Column(
-                  children: [AppBarActionItems(), PaymentDetailList()],
+          if (Responsive.isDesktop(context))
+            Expanded(
+              flex: 4,
+              child: Container(
+                width: double.infinity,
+                height: SizeConfig.screenHeight,
+                color: AppColors.secondaryBg,
+                child: const SingleChildScrollView(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
+                  child: Column(
+                    children: [AppBarActionItems(), PaymentDetailList()],
+                  ),
                 ),
               ),
             ),
-          ),
         ],
       )),
     );
