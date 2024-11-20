@@ -11,6 +11,7 @@ import 'package:transactions/config/size_config.dart';
 import 'package:transactions/style/colors.dart';
 import 'package:transactions/style/style.dart';
 
+// ignore: must_be_immutable
 class Dashboard extends StatelessWidget {
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
